@@ -1,6 +1,9 @@
 package com.api.model;
 
 import java.util.List;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.*;
 
@@ -21,32 +24,22 @@ public class Pelicula {
     @Column(name = "Presupuesto")
     private Double presupuesto;
 
-    @OneToMany(mappedBy = "pelicula" )
-    private List<DirectorPelicula> directores;
-    
-    
-    public Pelicula() {
-		super();
-	}
+    @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference // No serializa esta relación para evitar ciclo
+    private List<ActorPelicula> directores;
 
-	public Pelicula(Long id, String titulo, String categoria, Double presupuesto, List<DirectorPelicula> directores) {
-		super();
-		this.id = id;
-		this.titulo = titulo;
-		this.categoria = categoria;
-		this.presupuesto = presupuesto;
-		this.directores = directores;
-	}
+    public Pelicula() {}
 
-	public List<DirectorPelicula> getDirectores() {
-		return directores;
-	}
+    public Pelicula(Long id, String titulo, String categoria, Double presupuesto, List<ActorPelicula> directores) {
+        this.id = id;
+        this.titulo = titulo;
+        this.categoria = categoria;
+        this.presupuesto = presupuesto;
+        this.directores = directores;
+    }
 
-	public void setDirectores(List<DirectorPelicula> directores) {
-		this.directores = directores;
-	}
+    // Getters y setters...
 
-	// Getters y Setters
     public Long getId() {
         return id;
     }
@@ -77,5 +70,28 @@ public class Pelicula {
 
     public void setPresupuesto(Double presupuesto) {
         this.presupuesto = presupuesto;
+    }
+
+    public List<ActorPelicula> getDirectores() {
+        return directores;
+    }
+
+    public void setDirectores(List<ActorPelicula> directores) {
+        this.directores = directores;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof Pelicula))
+            return false;
+        Pelicula other = (Pelicula) obj;
+        return Objects.equals(id, other.id);
     }
 }

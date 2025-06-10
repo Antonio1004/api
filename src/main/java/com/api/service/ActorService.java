@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.model.Director;
-import com.api.repository.DirectorRepository;
+import com.api.repository.ActorRepository;
 
 @Service
-public class DirectorService {
+public class ActorService {
 	
 	@Autowired
-	private DirectorRepository directorRepository;	
+	private ActorRepository directorRepository;	
 	
 	public List<Director> findAll( ){
 		return directorRepository.findAll();

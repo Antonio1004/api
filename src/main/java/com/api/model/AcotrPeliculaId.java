@@ -2,7 +2,7 @@ package com.api.model;
 
 import java.io.Serializable;
 
-public class DirecotorPeliculaId  implements Serializable{
+public class AcotrPeliculaId  implements Serializable{
 	
 	private Long director;
 	private Long pelicula;
@@ -18,7 +18,7 @@ public class DirecotorPeliculaId  implements Serializable{
 	public void setPelicula(Long pelicula) {
 		this.pelicula = pelicula;
 	}
-	public DirecotorPeliculaId() {
+	public AcotrPeliculaId() {
 		super();
 	}
 	
