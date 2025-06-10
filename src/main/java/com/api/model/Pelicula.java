@@ -3,7 +3,7 @@ package com.api.model;
 import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 
@@ -25,20 +25,20 @@ public class Pelicula {
     private Double presupuesto;
 
     @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference // No serializa esta relación para evitar ciclo
-    private List<ActorPelicula> directores;
+    @JsonIgnoreProperties("pelicula")  // Ignora el atributo "pelicula" en ActorPelicula para evitar ciclo
+    private List<ActorPelicula> actores;
 
     public Pelicula() {}
 
-    public Pelicula(Long id, String titulo, String categoria, Double presupuesto, List<ActorPelicula> directores) {
+    public Pelicula(Long id, String titulo, String categoria, Double presupuesto, List<ActorPelicula> actores) {
         this.id = id;
         this.titulo = titulo;
         this.categoria = categoria;
         this.presupuesto = presupuesto;
-        this.directores = directores;
+        this.actores = actores;
     }
 
-    // Getters y setters...
+    // Getters y setters
 
     public Long getId() {
         return id;
@@ -72,12 +72,12 @@ public class Pelicula {
         this.presupuesto = presupuesto;
     }
 
-    public List<ActorPelicula> getDirectores() {
-        return directores;
+    public List<ActorPelicula> getActores() {
+        return actores;
     }
 
-    public void setDirectores(List<ActorPelicula> directores) {
-        this.directores = directores;
+    public void setActores(List<ActorPelicula> actores) {
+        this.actores = actores;
     }
 
     @Override

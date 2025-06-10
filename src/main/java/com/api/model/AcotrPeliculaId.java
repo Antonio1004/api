@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 public class AcotrPeliculaId  implements Serializable{
 	
-	private Long director;
+	private Long actor;
 	private Long pelicula;
-	public Long getDirector() {
-		return director;
+	public Long getActor() {
+		return actor;
 	}
-	public void setDirector(Long director) {
-		this.director = director;
+	public void setActor(Long actor) {
+		this.actor = actor;
 	}
 	public Long getPelicula() {
 		return pelicula;
@@ -21,6 +21,7 @@ public class AcotrPeliculaId  implements Serializable{
 	public AcotrPeliculaId() {
 		super();
 	}
+
 	
 
 	

@@ -3,13 +3,12 @@ package com.api.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Pelicula_Director")
+@Table(name = "Pelicula_Actor")
 @IdClass(AcotrPeliculaId.class)
 public class ActorPelicula implements Serializable {
 
@@ -17,31 +16,29 @@ public class ActorPelicula implements Serializable {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "id_director")
-    @JsonBackReference // Este lado no serializa para romper ciclo
-    private Director director;
+    @JoinColumn(name = "id_actor")
+    @JsonIgnoreProperties("peliculas")  // Ignora la lista 'peliculas' en Actor para evitar ciclo
+    private Actor actor;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "id_pelicula")
-    @JsonManagedReference // Este lado sí serializa
+    @JsonIgnoreProperties("actores")  // Ignora la lista 'actores' en Pelicula para evitar ciclo
     private Pelicula pelicula;
 
     public ActorPelicula() {}
 
-    public ActorPelicula(Director director, Pelicula pelicula) {
-        this.director = director;
+    public ActorPelicula(Actor actor, Pelicula pelicula) {
+        this.actor = actor;
         this.pelicula = pelicula;
     }
 
-    // Getters y setters
-
-    public Director getDirector() {
-        return director;
+    public Actor getActor() {
+        return actor;
     }
 
-    public void setDirector(Director director) {
-        this.director = director;
+    public void setActor(Actor actor) {
+        this.actor = actor;
     }
 
     public Pelicula getPelicula() {
@@ -54,16 +51,18 @@ public class ActorPelicula implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(director, pelicula);
+        return Objects.hash(actor, pelicula);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (!(obj instanceof ActorPelicula))
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
             return false;
         ActorPelicula other = (ActorPelicula) obj;
-        return Objects.equals(director, other.director) && Objects.equals(pelicula, other.pelicula);
+        return Objects.equals(actor, other.actor) && Objects.equals(pelicula, other.pelicula);
     }
 }
