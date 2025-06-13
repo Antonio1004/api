@@ -35,11 +35,11 @@ public class ActorController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> edit(@RequestBody Actor director, @PathVariable Long id) {
+	public ResponseEntity<?> edit(@RequestBody Actor actor, @PathVariable Long id) {
 		Actor existing = directorService.findById(id);
 		if (existing != null) {
-			director.setId(id);
-			return ResponseEntity.ok(directorService.saveDire(director));
+			actor.setId(id);
+			return ResponseEntity.ok(directorService.saveDire(actor));
 		} else {
 			return ResponseEntity.notFound().build();
 		}

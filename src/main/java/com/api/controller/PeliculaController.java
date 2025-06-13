@@ -37,17 +37,17 @@ public class PeliculaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> add(@RequestBody Pelicula director) {
-		Pelicula saved = peliculaService.savePeli(director);
+	public ResponseEntity<?> add(@RequestBody Pelicula pelicula) {
+		Pelicula saved = peliculaService.savePeli(pelicula);
 		return ResponseEntity.status(HttpStatus.CREATED).body(saved);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> edit(@RequestBody Pelicula director, @PathVariable Long id) {
+	public ResponseEntity<?> edit(@RequestBody Pelicula pelicula, @PathVariable Long id) {
 		Pelicula existing = peliculaService.findById(id);
 		if (existing != null) {
-			director.setId(id);
-			return ResponseEntity.ok(peliculaService.savePeli(director));
+			pelicula.setId(id);
+			return ResponseEntity.ok(peliculaService.savePeli(pelicula));
 		} else {
 			return ResponseEntity.notFound().build();
 		}
